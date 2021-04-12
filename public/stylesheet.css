@@ -21,6 +21,7 @@ body {
   font-size: 16px;
   margin-left: 30px;
   margin-top: 30px;
+  cursor: pointer;  
 }
 
 .add-note:hover {
@@ -38,6 +39,7 @@ body {
   width: 90%;
   height: 80px;
   margin: 30px 30px 0px 30px;
+  cursor: pointer;  
 }
 
 .note-preview:hover {
@@ -83,7 +85,7 @@ body {
 }
 
 .save-edit-note:focus {
-  outline: none;
+  outline: black;
 }
 
 #title {
