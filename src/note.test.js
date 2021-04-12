@@ -1,9 +1,25 @@
-import add from './note.js';
+import NoteManager from './note.js';
 
-let thisNote = add("title", "content");
+let noteManager = new NoteManager();
+let thisNote = noteManager.add("title", "content");
+let thisOtherNote = noteManager.add("other title", "other content");
 
 console.log("thisNote.title returns title")
 if(thisNote.title === "title") {
+  console.log("pass");
+} else {
+  console.log("fail");
+}
+
+console.log("thisNote.content returns content");
+if(thisNote.content === "content") {
+  console.log("pass");
+} else {
+  console.log("fail");
+}
+
+console.log("noteManager.list returns a list of notes");
+if(noteManager.list.includes(thisNote) && noteManager.list.includes(thisOtherNote))  {
   console.log("pass");
 } else {
   console.log("fail");
