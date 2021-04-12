@@ -24,3 +24,12 @@ if(noteManager.list.includes(thisNote) && noteManager.list.includes(thisOtherNot
 } else {
   console.log("fail");
 }
+
+console.log("noteManager.edit can change title and content");
+noteManager.edit(thisNote, "new title", "new content");
+if (thisNote.title === "new title" && thisNote.content === "new content") {
+  console.log("pass");
+} else {
+  console.log("fail");
+}
+

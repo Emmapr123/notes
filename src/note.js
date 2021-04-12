@@ -13,10 +13,12 @@ export default class NoteManager {
 
   add(title, content) {
     const thisNote = note(title, content);
-    // console.log(thisNote);
     this.list.push(thisNote);
-    // console.log(this.list);
     return thisNote;
   }
-  
+
+  edit(thisNote, title, content) {
+    thisNote.title = title;
+    thisNote.content = content;
+  }
 }
