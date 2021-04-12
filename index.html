@@ -2,7 +2,8 @@
 <html>
   <head>
     <link rel='stylesheet' type='text/css' href='./public/stylesheet.css'>
-
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
     <title>Notes</title>
   </head>
   <body>
@@ -10,20 +11,26 @@
     <div class='outer-square'>
       <div class='left-column'>
         <button class='add-note'>ADD NOTE</button>
-
-      <div class='note-preview'>
-
-      </div>
+      <button class='note-preview'>
+        <h3 class='preview-note'>MY TITLE</h3>
+        <p class='preview-note'> The first 20 charact.. </p>
+      </button>
+      <button class='note-preview'>
+        <h3 class='preview-note'>MY TITLE</h3>
+        <p class='preview-note'> The first 20 charact.. </p>
+      </button>
+      <button class='note-preview'>
+        <h3 class='preview-note'>MY TITLE</h3>
+        <p class='preview-note'> The first 20 charact.. </p>
+      </button>
       </div>
       <div class='right-column'>
 
-      <button class='save-note'>SAVE</button>
-      <button class='edit-note'>EDIT</button>
-        <div class='title-box'>
-
-        </div>
-        <div class='note-box'></div>
-
+      <div class='right-inner'>
+        <button class='save-edit-note'>SAVE</button>
+          <input type='text' placeholder='TITLE' name='title' id='title'>
+          <textarea id='note' rows="4" cols="50" placeholder="  NOTE"></textarea>
+      </div>
       </div>
 
     </div>
