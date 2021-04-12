@@ -1,39 +1,54 @@
 .outer-square {
   display: flex;
   flex-direction: row;
+  height: 500px;
 }
 
 .left-column {
   display: flex;
   flex-direction: column;
   width: 35%;
+  border: 5px solid blue;
 }
 
 .note-preview {
   border: 2px solid black;
   width: 90%;
-  height: 25%;
+  height: 40px;
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-left: 2px;
 }
 
 .right-column {
   display: flex;
   flex-direction: column;
   width: 65%;
+  margin-right: auto;
+  border: 5px solid red;
 }
 
-.save-note {
-  
+.save-note, .edit-note {
+  width: 15%;
+  background-color: white;
+  border: none;
+}
+
+input[button] {
+
 }
 
 .title-box {
   border: 2px solid black;
-  height: 16px;
+  height: 10%;
   width: 80%;
+  margin: 5px 2px 5px 60px;
+
 }
 
 .note-box {
   border: 2px solid black;
   height: 90%;
   width: 80%;
+  margin: 0px 2px 5px 60px;
 }
-
