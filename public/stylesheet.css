@@ -1,0 +1,39 @@
+.outer-square {
+  display: flex;
+  flex-direction: row;
+}
+
+.left-column {
+  display: flex;
+  flex-direction: column;
+  width: 35%;
+}
+
+.note-preview {
+  border: 2px solid black;
+  width: 90%;
+  height: 25%;
+}
+
+.right-column {
+  display: flex;
+  flex-direction: column;
+  width: 65%;
+}
+
+.save-note {
+  
+}
+
+.title-box {
+  border: 2px solid black;
+  height: 16px;
+  width: 80%;
+}
+
+.note-box {
+  border: 2px solid black;
+  height: 90%;
+  width: 80%;
+}
+
