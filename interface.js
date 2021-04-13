@@ -34,13 +34,20 @@ function listNotes() {
   })
 }
 
-
 function selectNote(note) {
-  return () => {
 
-  
-    document.querySelector(".right-inner").innerHTML= "<div class='buttons'><div></div><button class='save-edit-delete-note' id='delete'>DELETE</button><button class='save-edit-delete-note' id='save'>EDIT</button></div><input type='text' placeholder='TITLE' name='title' id='title' disabled><textarea id='note' rows='4' cols='50' placeholder='  NOTE' disabled></textarea></div>"
+  return () => {
+    document.querySelector(".right-inner").innerHTML= "<div class='buttons'><div></div><button class='save-edit-delete-note' id='delete'>DELETE</button><button class='save-edit-delete-note' id='edit'>EDIT</button></div><input type='text' placeholder='TITLE' name='title' id='title' disabled><textarea id='note' rows='4' cols='50' placeholder='  NOTE' disabled></textarea></div>"
     document.querySelector("#title").value = note.title
     document.querySelector('#note').value = note.content
+    document.querySelector('#edit').addEventListener("click", editNote);
     }
+}
+
+function editNote() {
+  document.querySelector("#title").removeAttribute("disabled")
+  document.querySelector("#note").removeAttribute("disabled")
+  document.querySelector("#edit").remove();
+  var newNode = document.createElement("<button class='save-edit-delete-note' id='save'>SAVE</button>");
+  document.querySelector("#delete").insertAfter(newNode);
 }
