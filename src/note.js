@@ -6,7 +6,7 @@ const note = (title, content) => {
   }
 }
 
-export default class NoteManager {
+class NoteManager {
   constructor() {
     this.list = [];
   }
