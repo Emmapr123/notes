@@ -70,21 +70,33 @@ body {
   height: 100vh;
 }
 
-.save-edit-note {
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* margin-left: auto; */
+  display: grid;
+  grid-template-columns: 70% 15% 15%;
+  align-items: right;
+  justify-content: right;
+}
+
+.save-edit-delete-note {
   width: 15%;
   background-color: white;
   border: none;
   font-size: 16px;
-  margin-left: auto;
+  margin-right: 50px;
   margin-top: 30px;
   cursor: pointer;  
+  
 }
 
-.save-edit-note:hover {
+.save-edit-delete-note:hover {
   color: gray;
 }
 
-.save-edit-note:focus {
+.save-edit-delete-note:focus {
   outline: black;
 }
 
