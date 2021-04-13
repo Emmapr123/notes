@@ -1,0 +1,125 @@
+body {
+  margin: 0px
+}
+
+.outer-square {
+  display: flex;
+  flex-direction: row;
+  height: 100vw;
+}
+
+.left-column {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.add-note {
+  background-color: white;
+  border: none;
+  width: 100px;
+  font-size: 16px;
+  margin-left: 30px;
+  margin-top: 30px;
+  cursor: pointer;  
+}
+
+.add-note:hover {
+  color: gray;
+}
+
+.add-note:focus {
+  outline: none;
+}
+
+.note-preview {
+  border: 2px solid black;
+  background-color: white;
+  text-align: left;
+  width: 90%;
+  height: 80px;
+  margin: 30px 30px 0px 30px;
+  cursor: pointer;  
+}
+
+.note-preview:hover {
+  color: gray;
+  border: 2px solid gray;
+}
+
+.note-preview:focus {
+  color: darkgray;
+  border: darkgray;
+  outline: 2px solid darkgray;
+}
+
+.preview-note {
+  font-family: 'Roboto', sans-serif;
+}
+
+.right-column {
+  display: flex;
+  flex-direction: column;
+  flex: 2;
+  margin-right: auto;
+}
+
+.right-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.save-edit-note {
+  width: 15%;
+  background-color: white;
+  border: none;
+  font-size: 16px;
+  margin-left: auto;
+  margin-top: 30px;
+  cursor: pointer;  
+}
+
+.save-edit-note:hover {
+  color: gray;
+}
+
+.save-edit-note:focus {
+  outline: black;
+}
+
+#title {
+  padding: 16px;
+  font-family: 'Roboto', sans-serif;
+  border: none;
+  color: grey;
+  font-size: 16px;
+  height: 16px;
+  border: 2px solid black;;
+  margin: 30px 30px 20px 100px;
+}
+
+#title:focus {
+  border-color: gray;
+  outline: none;
+  box-shadow: 5px 5px gray;
+  background-color: white;
+}
+
+#note {
+  display: flex;
+  font-family: 'Roboto', sans-serif;
+  height: 100%;
+  flex: 1;
+  border: 2px solid black;
+  font-size: 16px;
+  color: gray;
+  margin: 1px 30px 0px 100px;
+}
+
+#note:focus {
+  border-color: gray;
+  outline: none;
+  box-shadow: 5px 5px gray;
+}
+
