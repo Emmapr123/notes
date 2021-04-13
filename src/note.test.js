@@ -33,3 +33,10 @@ if (thisNote.title === "new title" && thisNote.content === "new content") {
   console.log("fail");
 }
 
+console.log("noteManager.delete removes a note from the list");
+noteManager.delete("new title");
+if ((noteManager.list).includes(thisNote)) {
+  console.log("fail");
+} else {
+  console.log("pass");
+}
