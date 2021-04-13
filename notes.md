@@ -30,3 +30,30 @@
 
 * Pair 2 - Sha and Inbar
  • Back-End
+
+
+ ## Day 2
+- We met at 2pm to go over what the pairs had done the previous day
+
+- We merged the branches from yesterday's pairs into the master branch
+
+- Added additional to-do items based on user stories and 'missing features' noticed during yesterday's work (e.g. delete option)
+
+- Selected priority tasks from to-do list:
+  * Add delete feature (in HTML and in class)
+  * Connect model to view using interface
+  * Turn tests into testing library
+
+  **Day 2 - Pairs**
+
+* Pair 1 -  Max and Inbar
+  - Delete functionality in class
+  - Create own testing library
+  - interface.js: display the list, select and display, change edit button to save button
+
+
+* Pair 2 - Sha and Emma
+  - Add href to notes in HTML
+  - Add delete button in HTML
+  - interface.js: add, save, edit, delete
+
