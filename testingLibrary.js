@@ -10,13 +10,27 @@ function it(description, callback) {
   callback();
 }
 
-function expect(action) {
+function expect(input) {
   return {
     toEqual: function(expectedResult) {
-      if (action === expectedResult) {
+      if (input === expectedResult) {
         console.log("Pass");
       } else {
         console.log("Fail")
+      }
+    },
+    toInclude: function(expectedMatch) {
+      if (input.includes(expectedMatch)) {
+        console.log("Pass");
+      } else {
+        console.log("Fail")
+      }
+    },
+    toNotInclude: function(expectedMatch) {
+      if (input.includes(expectedMatch)) {
+        console.log("Fail");
+      } else {
+        console.log("Pass")
       }
     }
   }
