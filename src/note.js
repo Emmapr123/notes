@@ -21,4 +21,10 @@ export default class NoteManager {
     thisNote.title = title;
     thisNote.content = content;
   }
+
+  delete(title){
+    const findNote = (note) => note.title === title
+    let noteIndex = this.list.findIndex(findNote)
+    this.list.splice(noteIndex, 1)
+  }
 }
