@@ -13,13 +13,16 @@ function refreshRight() {
 }
 
 function addNewNote() {
-  console.log("Also clicked")
   var title = document.querySelector("#title").value
   var note = document.querySelector("#note").value
-  var newNote = noteManager.add(title, note)
-  console.log(newNote)
-  clearText();
-  listNotes();
+
+  postData('https://makers-emojify.herokuapp.com/', { text: note })
+  .then(data => {
+    note = data;
+    noteManager.add(title, note)
+    clearText();
+    listNotes();
+  });  
 }
 
 function clearText() {
@@ -30,7 +33,7 @@ function clearText() {
 function listNotes() {
   htmlStr="";
   noteManager.list.map((note, index) => {
-    htmlStr += `<button class='note-preview' id='note${index}'><h3 class='preview-note'>${note.title}</h3><p class='preview-note'>${note.content}</p></button>`;
+    htmlStr += `<button class='note-preview' id='note${index}'><h3 class='preview-note'>${note.title}</h3><p class='preview-note'>${note.content.emojified_text}</p></button>`;
   })
 
   document.querySelector('.previewed-notes').innerHTML=htmlStr;
@@ -45,7 +48,7 @@ function selectNote(note) {
   return () => {
     document.querySelector(".right-inner").innerHTML= "<div class='buttons'><div></div><button class='save-edit-delete-note' id='delete'>DELETE</button><button class='save-edit-delete-note' id='save'>SAVE</button></div><input type='text' placeholder='TITLE' name='title' id='title'><textarea id='note' rows='4' cols='50' placeholder='  NOTE'></textarea></div>"
     document.querySelector("#title").value = note.title
-    document.querySelector('#note').value = note.content
+    document.querySelector('#note').value = note.content.emojified_text
     document.querySelector('#save').addEventListener("click", editNote(note));
     document.querySelector('#delete').addEventListener("click", deleteNote(note));
     }
@@ -55,9 +58,15 @@ function editNote(note) {
   return () => {
     var title = document.querySelector("#title").value
     var content = document.querySelector("#note").value
-    noteManager.edit(note, title, content);
-    clearText();
-    listNotes();
+    
+    postData('https://makers-emojify.herokuapp.com/', { text: note })
+    .then(data => {
+      note = data;
+      noteManager.edit(note, title, content);
+      clearText();
+      listNotes();
+    });  
+
   }
 }
 
@@ -68,3 +77,22 @@ function editNote(note) {
       listNotes();
     }
   }
+
+  // Example POST method implementation:
+async function postData(url = '', data = {}) {
+  // Default options are marked with *
+  const response = await fetch(url, {
+    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    mode: 'cors', // no-cors, *cors, same-origin
+    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: 'same-origin', // include, *same-origin, omit
+    headers: {
+      'Content-Type': 'application/json'
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    redirect: 'follow', // manual, *follow, error
+    referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    body: JSON.stringify(data) // body data type must match "Content-Type" header
+  });
+  return response.json(); // parses JSON response into native JavaScript objects
+}
