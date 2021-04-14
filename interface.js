@@ -32,7 +32,7 @@ function listNotes() {
   noteManager.list.map((note, index) => {
     htmlStr += `<button class='note-preview' id='note${index}'><h3 class='preview-note'>${note.title}</h3><p class='preview-note'>${note.content}</p></button>`;
   })
- 
+
   document.querySelector('.previewed-notes').innerHTML=htmlStr;
 
   noteManager.list.map((note, index) => {
@@ -47,6 +47,7 @@ function selectNote(note) {
     document.querySelector("#title").value = note.title
     document.querySelector('#note').value = note.content
     document.querySelector('#save').addEventListener("click", editNote(note));
+    document.querySelector('#delete').addEventListener("click", deleteNote(note));
     }
 }
 
@@ -57,5 +58,11 @@ function editNote(note) {
     noteManager.edit(note, title, content);
     listNotes();
   }
-  
 }
+
+  function deleteNote(note) {
+    return () => {
+      noteManager.delete(note)
+      listNotes();
+    }
+  }
