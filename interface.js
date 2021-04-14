@@ -45,7 +45,7 @@ function selectNote(note) {
   return () => {
     document.querySelector(".right-inner").innerHTML= "<div class='buttons'><div></div><button class='save-edit-delete-note' id='delete'>DELETE</button><button class='save-edit-delete-note' id='edit'>EDIT</button></div><input type='text' placeholder='TITLE' name='title' id='title' disabled><textarea id='note' rows='4' cols='50' placeholder='  NOTE' disabled></textarea></div>"
     document.querySelector("#title").value = note.title
-    document.querySelector('#note').value = note.content
+    document.querySelector('#note').value = note.content.emojified_text
     document.querySelector('#edit').addEventListener("click", editNote);
     }
 }
