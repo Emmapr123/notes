@@ -44,6 +44,8 @@
   * Connect model to view using interface
   * Turn tests into testing library
 
+- Met at 5pm discussed what's done and merged
+
   **Day 2 - Pairs**
 
 * Pair 1 -  Max and Inbar
@@ -57,3 +59,12 @@
   - Add delete button in HTML
   - interface.js: add, save, edit, delete
 
+
+## Day 3
+- List what's left in Trello
+
+**Day 3 - Pairs**
+
+* Pair 1 - Max and Sha
+
+* Pair 2 - Emma and Inbar
