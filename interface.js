@@ -16,15 +16,21 @@ function addNewNote() {
   console.log("Also clicked")
   var title = document.querySelector("#title").value
   var note = document.querySelector("#note").value
-  var newNote = noteManager.add(title, note)
-  console.log(newNote)
-  listNotes();
+
+  postData('https://makers-emojify.herokuapp.com/', { text: note })
+    .then(data => {
+      note = data; // JSON data parsed by `data.json()` call
+      var newNote = noteManager.add(title, note)
+      console.log(newNote)
+      listNotes();
+    });
+    
 }
 
 function listNotes() {
   htmlStr="";
   noteManager.list.map((note, index) => {
-    htmlStr += `<button class='note-preview' id='note${index}'><h3 class='preview-note'>${note.title}</h3><p class='preview-note'>${note.content}</p></button>`;
+    htmlStr += `<button class='note-preview' id='note${index}'><h3 class='preview-note'>${note.title}</h3><p class='preview-note'>${note.content.emojified_text}</p></button>`;
   })
  
   document.querySelector('.previewed-notes').innerHTML=htmlStr;
@@ -50,4 +56,23 @@ function editNote() {
   document.querySelector("#edit").remove();
   var newNode = document.createElement("<button class='save-edit-delete-note' id='save'>SAVE</button>");
   document.querySelector("#delete").insertAfter(newNode);
+}
+
+// Example POST method implementation:
+async function postData(url = '', data = {}) {
+  // Default options are marked with *
+  const response = await fetch(url, {
+    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    mode: 'cors', // no-cors, *cors, same-origin
+    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: 'same-origin', // include, *same-origin, omit
+    headers: {
+      'Content-Type': 'application/json'
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    redirect: 'follow', // manual, *follow, error
+    referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    body: JSON.stringify(data) // body data type must match "Content-Type" header
+  });
+  return response.json(); // parses JSON response into native JavaScript objects
 }
