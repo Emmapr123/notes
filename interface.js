@@ -7,7 +7,7 @@ document.querySelector(".add-note").addEventListener("click", refreshRight) ;
 
 function refreshRight() {
   console.log("clicked")
-  document.querySelector(".right-inner").innerHTML= "<div class='buttons'><div></div><button class='save-edit-delete-note' id='delete'>DELETE</button><button class='save-edit-delete-note' id='save'>SAVE</button></div><input type='text' placeholder='TITLE' name='title' id='title'><textarea id='note' rows='4' cols='50' placeholder='  NOTE'></textarea></div>";
+  document.querySelector(".right-inner").innerHTML= "<div class='buttons'><div></div><button class='save-edit-delete-note' id='save'>SAVE</button></div><input type='text' placeholder='TITLE' name='title' id='title'><textarea id='note' rows='4' cols='50' placeholder='  NOTE'></textarea></div>";
   // document.querySelector(".right-inner").innerHTML= "<h1>test</h1>";
   document.querySelector("#save").addEventListener("click", addNewNote) ;
 }
@@ -18,7 +18,13 @@ function addNewNote() {
   var note = document.querySelector("#note").value
   var newNote = noteManager.add(title, note)
   console.log(newNote)
+  clearText();
   listNotes();
+}
+
+function clearText() {
+  document.querySelector("#title").value = ""
+  document.querySelector("#note").value = ""
 }
 
 function listNotes() {
@@ -26,7 +32,7 @@ function listNotes() {
   noteManager.list.map((note, index) => {
     htmlStr += `<button class='note-preview' id='note${index}'><h3 class='preview-note'>${note.title}</h3><p class='preview-note'>${note.content}</p></button>`;
   })
- 
+
   document.querySelector('.previewed-notes').innerHTML=htmlStr;
 
   noteManager.list.map((note, index) => {
@@ -37,17 +43,28 @@ function listNotes() {
 function selectNote(note) {
 
   return () => {
-    document.querySelector(".right-inner").innerHTML= "<div class='buttons'><div></div><button class='save-edit-delete-note' id='delete'>DELETE</button><button class='save-edit-delete-note' id='edit'>EDIT</button></div><input type='text' placeholder='TITLE' name='title' id='title' disabled><textarea id='note' rows='4' cols='50' placeholder='  NOTE' disabled></textarea></div>"
+    document.querySelector(".right-inner").innerHTML= "<div class='buttons'><div></div><button class='save-edit-delete-note' id='delete'>DELETE</button><button class='save-edit-delete-note' id='save'>SAVE</button></div><input type='text' placeholder='TITLE' name='title' id='title'><textarea id='note' rows='4' cols='50' placeholder='  NOTE'></textarea></div>"
     document.querySelector("#title").value = note.title
     document.querySelector('#note').value = note.content
-    document.querySelector('#edit').addEventListener("click", editNote);
+    document.querySelector('#save').addEventListener("click", editNote(note));
+    document.querySelector('#delete').addEventListener("click", deleteNote(note));
     }
 }
 
-function editNote() {
-  document.querySelector("#title").removeAttribute("disabled")
-  document.querySelector("#note").removeAttribute("disabled")
-  document.querySelector("#edit").remove();
-  var newNode = document.createElement("<button class='save-edit-delete-note' id='save'>SAVE</button>");
-  document.querySelector("#delete").insertAfter(newNode);
+function editNote(note) {
+  return () => {
+    var title = document.querySelector("#title").value
+    var content = document.querySelector("#note").value
+    noteManager.edit(note, title, content);
+    clearText();
+    listNotes();
+  }
 }
+
+  function deleteNote(note) {
+    return () => {
+      noteManager.delete(note)
+      clearText();
+      listNotes();
+    }
+  }

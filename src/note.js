@@ -22,9 +22,8 @@ class NoteManager {
     thisNote.content = content;
   }
 
-  delete(title){
-    const findNote = (note) => note.title === title
-    let noteIndex = this.list.findIndex(findNote)
+  delete(thisNote){
+    let noteIndex = this.list.indexOf(thisNote)
     this.list.splice(noteIndex, 1)
   }
 }

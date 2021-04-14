@@ -23,6 +23,6 @@ it("noteManager.list returns a list of notes",  function(){
 })
 
 it('noteManager.delete removes a note from the list', function(){
-  noteManager.delete("new title")
+  noteManager.delete(thisNote)
   expect(noteManager.list).toNotInclude(thisNote)
 })
