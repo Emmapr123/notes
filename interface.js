@@ -56,6 +56,7 @@ function editNote(note) {
     var title = document.querySelector("#title").value
     var content = document.querySelector("#note").value
     noteManager.edit(note, title, content);
+    clearText();
     listNotes();
   }
 }
@@ -63,6 +64,7 @@ function editNote(note) {
   function deleteNote(note) {
     return () => {
       noteManager.delete(note)
+      clearText();
       listNotes();
     }
   }
