@@ -33,7 +33,7 @@ function clearText() {
 function listNotes() {
   htmlStr="";
   noteManager.list.map((note, index) => {
-    htmlStr += `<button class='note-preview' id='note${index}'><h3 class='preview-note'>${note.title}</h3><p class='preview-note'>${note.content.emojified_text}</p></button>`;
+    htmlStr += `<button class='note-preview' id='note${index}'><h3 class='preview-note'>${note.title}</h3><p class='preview-note'>${note.content.emojified_text.substring(0,20)}</p></button>`;
   })
 
   document.querySelector('.previewed-notes').innerHTML=htmlStr;
