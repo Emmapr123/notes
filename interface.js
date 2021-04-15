@@ -20,9 +20,13 @@ function addNewNote() {
   .then(data => {
     note = data;
     noteManager.add(title, note)
+    
+    localStorage.setItem(title, note.emojified_text)
+
     clearText();
     listNotes();
   });  
+
 }
 
 function clearText() {
@@ -33,7 +37,11 @@ function clearText() {
 function listNotes() {
   htmlStr="";
   noteManager.list.map((note, index) => {
-    htmlStr += `<button class='note-preview' id='note${index}'><h3 class='preview-note'>${note.title}</h3><p class='preview-note'>${note.content.emojified_text}</p></button>`;
+
+    note = localStorage.getItem(`${title}`)
+
+    htmlStr += `<button class='note-preview' id='note${index}'><h3 class='preview-note'>${title}</h3><p class='preview-note'>${note}</p></button>`;
+    console.log(localStorage)
   })
 
   document.querySelector('.previewed-notes').innerHTML=htmlStr;
@@ -47,8 +55,8 @@ function selectNote(note) {
 
   return () => {
     document.querySelector(".right-inner").innerHTML= "<div class='buttons'><div></div><button class='save-edit-delete-note' id='delete'>DELETE</button><button class='save-edit-delete-note' id='save'>SAVE</button></div><input type='text' placeholder='TITLE' name='title' id='title'><textarea id='note' rows='4' cols='50' placeholder='  NOTE'></textarea></div>"
-    document.querySelector("#title").value = note.title
-    document.querySelector('#note').value = note.content.emojified_text
+    document.querySelector("#title").value = localStorage.getItem('title')
+    document.querySelector('#note').value = localStorage.getItem('note')
     document.querySelector('#save').addEventListener("click", editNote(note));
     document.querySelector('#delete').addEventListener("click", deleteNote(note));
     }
@@ -59,14 +67,13 @@ function editNote(note) {
     var title = document.querySelector("#title").value
     var content = document.querySelector("#note").value
     
-    postData('https://makers-emojify.herokuapp.com/', { text: note })
-    .then(data => {
-      note = data;
-      noteManager.edit(note, title, content);
-      clearText();
-      listNotes();
-    });  
 
+    localStorage.setItem('title', title)
+    localStorage.setItem('note', content)
+
+    noteManager.edit(note, title, content.emojified_text);
+    clearText();
+    listNotes();
   }
 }
 
