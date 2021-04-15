@@ -66,10 +66,6 @@ function editNote(note) {
   return () => {
     var title = document.querySelector("#title").value
     var content = document.querySelector("#note").value
-    
-
-    localStorage.setItem('title', title)
-    localStorage.setItem('note', content)
 
     noteManager.edit(note, title, content.emojified_text);
     clearText();
