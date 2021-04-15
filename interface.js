@@ -46,7 +46,6 @@ function listNotes() {
   noteManager.list.map((note, index) => {
 
     htmlStr += `<button class='note-preview' id='note${index}'><h3 class='preview-note'>${note.title}</h3><p class='preview-note'>${note.content}</p></button>`;
-    console.log(localStorage)
   })
 
   document.querySelector('.previewed-notes').innerHTML=htmlStr;
