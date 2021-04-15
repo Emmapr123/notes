@@ -1,20 +1,14 @@
-// import NoteManager from "./src/note.js";
-
 let noteManager = new NoteManager();
 
-console.log(noteManager.list)
 if(localStorage.getItem("list")) {
   noteManager.list = JSON.parse(localStorage.getItem("list"));
-  console.log(noteManager.list)
 }
 
 listNotes();
 document.querySelector(".add-note").addEventListener("click", refreshRight) ;
 
 function refreshRight() {
-  console.log("clicked")
   document.querySelector(".right-inner").innerHTML= "<div class='buttons'><div></div><button class='save-edit-delete-note' id='save'>SAVE</button></div><input type='text' placeholder='TITLE' name='title' id='title'><textarea id='note' rows='4' cols='50' placeholder='  NOTE'></textarea></div>";
-  // document.querySelector(".right-inner").innerHTML= "<h1>test</h1>";
   addTextInputKeyupListener()
   document.querySelector("#save").addEventListener("click", addNewNote) ;
 }
@@ -32,9 +26,7 @@ function emojify(textInput) {
     if (event.key === ":") {
       postData(url, { text: textInput.value })
         .then(data => {
-        console.log(1, data); // JSON data parsed by `data.json()` call
         if (data.status == "OK" && data.emojified_text !== undefined) {
-          console.log(2, data);
           textInput.value = data.emojified_text;
         }
       });
@@ -49,11 +41,8 @@ function addNewNote() {
   noteManager.add(title, note);
   
   saveToStorage();
-
   clearText();
   listNotes();
-
-
 }
 
 function clearText() {
@@ -65,7 +54,7 @@ function listNotes() {
   htmlStr="";
   noteManager.list.map((note, index) => {
 
-    htmlStr += `<button class='note-preview' id='note${index}'><h3 class='preview-note'>${note.title}</h3><p class='preview-note'>${note.content}</p></button>`;
+    htmlStr += `<button class='note-preview' id='note${index}'><h3 class='preview-note'>${note.title}</h3><p class='preview-note'>${note.content.substring(0, 20)}</p></button>`;
   })
 
   document.querySelector('.previewed-notes').innerHTML=htmlStr;
