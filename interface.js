@@ -2,6 +2,12 @@
 
 let noteManager = new NoteManager();
 
+console.log(noteManager.list)
+if(localStorage.getItem("list")) {
+  noteManager.list = JSON.parse(localStorage.getItem("list"));
+  console.log(noteManager.list)
+}
+
 listNotes();
 document.querySelector(".add-note").addEventListener("click", refreshRight) ;
 
@@ -18,10 +24,11 @@ function addNewNote() {
 
   postData('https://makers-emojify.herokuapp.com/', { text: note })
   .then(data => {
-    note = data;
-    noteManager.add(title, note)
+    note = data.emojified_text;
+    console.log(data);
+    noteManager.add(title, note);
     
-    localStorage.setItem(title, note.emojified_text)
+    saveToStorage();
 
     clearText();
     listNotes();
@@ -38,9 +45,7 @@ function listNotes() {
   htmlStr="";
   noteManager.list.map((note, index) => {
 
-    note = localStorage.getItem(`${title}`)
-
-    htmlStr += `<button class='note-preview' id='note${index}'><h3 class='preview-note'>${title}</h3><p class='preview-note'>${note}</p></button>`;
+    htmlStr += `<button class='note-preview' id='note${index}'><h3 class='preview-note'>${note.title}</h3><p class='preview-note'>${note.content}</p></button>`;
     console.log(localStorage)
   })
 
@@ -55,8 +60,8 @@ function selectNote(note) {
 
   return () => {
     document.querySelector(".right-inner").innerHTML= "<div class='buttons'><div></div><button class='save-edit-delete-note' id='delete'>DELETE</button><button class='save-edit-delete-note' id='save'>SAVE</button></div><input type='text' placeholder='TITLE' name='title' id='title'><textarea id='note' rows='4' cols='50' placeholder='  NOTE'></textarea></div>"
-    document.querySelector("#title").value = localStorage.getItem('title')
-    document.querySelector('#note').value = localStorage.getItem('note')
+    document.querySelector("#title").value = note.title
+    document.querySelector('#note').value = note.content
     document.querySelector('#save').addEventListener("click", editNote(note));
     document.querySelector('#delete').addEventListener("click", deleteNote(note));
     }
@@ -66,12 +71,10 @@ function editNote(note) {
   return () => {
     var title = document.querySelector("#title").value
     var content = document.querySelector("#note").value
-    
 
-    localStorage.setItem('title', title)
-    localStorage.setItem('note', content)
+    noteManager.edit(note, title, content);
 
-    noteManager.edit(note, title, content.emojified_text);
+    saveToStorage();
     clearText();
     listNotes();
   }
@@ -80,9 +83,16 @@ function editNote(note) {
   function deleteNote(note) {
     return () => {
       noteManager.delete(note)
+
+      saveToStorage();
       clearText();
       listNotes();
     }
+  }
+
+  function saveToStorage() {
+    let storageList = JSON.stringify(noteManager.list)
+    localStorage.setItem("list", storageList)
   }
 
   // Example POST method implementation:
