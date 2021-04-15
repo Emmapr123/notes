@@ -1,39 +1,48 @@
-// import NoteManager from "./src/note.js";
-
 let noteManager = new NoteManager();
 
-console.log(noteManager.list)
 if(localStorage.getItem("list")) {
   noteManager.list = JSON.parse(localStorage.getItem("list"));
-  console.log(noteManager.list)
 }
 
 listNotes();
 document.querySelector(".add-note").addEventListener("click", refreshRight) ;
 
 function refreshRight() {
-  console.log("clicked")
   document.querySelector(".right-inner").innerHTML= "<div class='buttons'><div></div><button class='save-edit-delete-note' id='save'>SAVE</button></div><input type='text' placeholder='TITLE' name='title' id='title'><textarea id='note' rows='4' cols='50' placeholder='  NOTE'></textarea></div>";
-  // document.querySelector(".right-inner").innerHTML= "<h1>test</h1>";
+  addTextInputKeyupListener()
   document.querySelector("#save").addEventListener("click", addNewNote) ;
+}
+
+function addTextInputKeyupListener() {
+  const titleInput = document.getElementById("title");
+  emojify(titleInput);
+  const contentInput = document.getElementById("note");
+  emojify(contentInput);
+}
+
+function emojify(textInput) {
+  const url = "https://makers-emojify.herokuapp.com/"
+  textInput.addEventListener("keyup", function (event) {
+    if (event.key === ":") {
+      postData(url, { text: textInput.value })
+        .then(data => {
+        if (data.status == "OK" && data.emojified_text !== undefined) {
+          textInput.value = data.emojified_text;
+        }
+      });
+    }
+  });
 }
 
 function addNewNote() {
   var title = document.querySelector("#title").value
   var note = document.querySelector("#note").value
-
-  postData('https://makers-emojify.herokuapp.com/', { text: note })
-  .then(data => {
-    note = data.emojified_text;
-    console.log(data);
-    noteManager.add(title, note);
-    
-    saveToStorage();
-
-    clearText();
-    listNotes();
-  });  
-
+  
+  noteManager.add(title, note);
+  
+  saveToStorage();
+  clearText();
+  listNotes();
 }
 
 function clearText() {
@@ -45,7 +54,7 @@ function listNotes() {
   htmlStr="";
   noteManager.list.map((note, index) => {
 
-    htmlStr += `<button class='note-preview' id='note${index}'><h3 class='preview-note'>${note.title}</h3><p class='preview-note'>${note.content}</p></button>`;
+    htmlStr += `<button class='note-preview' id='note${index}'><h3 class='preview-note'>${note.title}</h3><p class='preview-note'>${note.content.substring(0, 20)}</p></button>`;
   })
 
   document.querySelector('.previewed-notes').innerHTML=htmlStr;
@@ -59,6 +68,7 @@ function selectNote(note) {
 
   return () => {
     document.querySelector(".right-inner").innerHTML= "<div class='buttons'><div></div><button class='save-edit-delete-note' id='delete'>DELETE</button><button class='save-edit-delete-note' id='save'>SAVE</button></div><input type='text' placeholder='TITLE' name='title' id='title'><textarea id='note' rows='4' cols='50' placeholder='  NOTE'></textarea></div>"
+    addTextInputKeyupListener()
     document.querySelector("#title").value = note.title
     document.querySelector('#note').value = note.content
     document.querySelector('#save').addEventListener("click", editNote(note));
